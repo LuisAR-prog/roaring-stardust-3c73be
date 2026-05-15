@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAR Hosting & Hospitality</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8D48B;
+  --gold-bright: #FFD700;
+  --gold-dark: #8B7326;
+  --black: #080808;
+  --black-soft: #0E0E0E;
+  --black-card: #111111;
+  --black-elevated: #161616;
+  --white: #F5F0E8;
+  --white-dim: #B8B0A0;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-accent: 'Cormorant Garamond', Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dark) var(--black);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ========== CUSTOM SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+/* ========== TEXTURE OVERLAY ========== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ========== NAVIGATION ========== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(8, 8, 8, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(201, 168, 76, 0.15);
+}
+
+.nav-logo {
+  height: 55px;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-links a:hover {
+  color: var(--gold-light);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--gold);
+  margin: 6px 0;
+  transition: all 0.3s ease;
+}
+
+/* ========== HERO SECTION ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201, 168, 76, 0.06) 0%, transparent 70%),
+    radial-gradient(circle at 20% 80%, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(201, 168, 76, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-deco-line {
+  position: absolute;
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--gold-dark), transparent);
+  opacity: 0;
+  animation: fadeSlideDown 1.2s ease 0.2s forwards;
+}
+
+.hero-deco-line.left {
+  left: 15%;
+  top: 15%;
+}
+
+.hero-deco-line.right {
+  right: 15%;
+  bottom: 15%;
+}
+
+.hero-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeScale 1s ease 0.3s forwards;
+  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.15));
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 3px;
+  line-height: 1.2;
+  opacity: 0;
+  animation: fadeSlideUp 1s ease 0.6s forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.hero-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 28px auto;
+  opacity: 0;
+  animation: fadeSlideUp 1s ease 0.8s forwards;
+}
+
+.hero-subtitle {
+  font-family: var(--font-accent);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 300;
+  color: var(--white-dim);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeSlideUp 1s ease 1s forwards;
+}
+
+.hero-cities {
+  margin-top: 50px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeSlideUp 1s ease 1.2s forwards;
+}
+
+.hero-city {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  position: relative;
+}
+
+.hero-city:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -17px;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeSlideUp 1s ease 1.5s forwards;
+}
+
+.hero-scroll span {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold-dark), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+
+/* ========== CAROUSEL SECTION ========== */
+.carousel-section {
+  padding: 0;
+  position: relative;
+  background: var(--black);
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 70vh;
+}
+
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(8, 8, 8, 0.7) 0%,
+    rgba(8, 8, 8, 0.2) 35%,
+    rgba(8, 8, 8, 0.05) 60%,
+    rgba(8, 8, 8, 0.3) 100%
+  );
+  pointer-events: none;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.carousel-caption-city {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.carousel-caption-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(8, 8, 8, 0.45);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--white);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.carousel-arrow:hover {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+
+.carousel-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.carousel-arrow.prev { left: 20px; }
+.carousel-arrow.next { right: 20px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 4;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(245, 240, 232, 0.25);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+  background: var(--gold);
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ========== SECTION COMMON ========== */
+section {
+  padding: 120px 40px;
+  position: relative;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.1s;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.2s;
+}
+
+.visible .section-label,
+.visible .section-title,
+.visible .section-divider {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== ABOUT SECTION ========== */
+.about {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-content {
+  padding-right: 20px;
+}
+
+.about-text {
+  font-family: var(--font-accent);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--white-dim);
+  line-height: 1.9;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.3s;
+}
+
+.visible .about-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.4s;
+}
+
+.visible .about-stats {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stat {
+  padding: 24px;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 2px;
+  background: rgba(201, 168, 76, 0.02);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--gold);
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+
+.about-visual {
+  position: relative;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 1s ease 0.4s;
+}
+
+.visible .about-visual {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-wolf {
+  width: 100%;
+  max-width: 420px;
+  filter: drop-shadow(0 0 60px rgba(201, 168, 76, 0.1));
+}
+
+.about-visual::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  border-top: 1px solid var(--gold-dark);
+  border-right: 1px solid var(--gold-dark);
+  opacity: 0.4;
+}
+
+.about-visual::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  width: 120px;
+  height: 120px;
+  border-bottom: 1px solid var(--gold-dark);
+  border-left: 1px solid var(--gold-dark);
+  opacity: 0.4;
+}
+
+/* ========== CATALOG SECTION ========== */
+.catalog {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.catalog-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px;
+}
+
+.property-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.property-card.card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.property-card:first-child {
+  grid-row: span 2;
+}
+
+.property-card .card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  overflow: hidden;
+}
+
+.property-card:first-child .card-image-wrapper {
+  min-height: 704px;
+}
+
+.property-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.property-card:hover img {
+  transform: scale(1.06);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(8, 8, 8, 0.9) 0%,
+    rgba(8, 8, 8, 0.3) 40%,
+    rgba(8, 8, 8, 0.05) 70%
+  );
+  transition: background 0.5s ease;
+}
+
+.property-card:hover .card-overlay {
+  background: linear-gradient(
+    0deg,
+    rgba(8, 8, 8, 0.95) 0%,
+    rgba(8, 8, 8, 0.4) 45%,
+    rgba(8, 8, 8, 0.1) 70%
+  );
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 36px;
+  z-index: 2;
+}
+
+.card-city {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-city::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.card-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.property-card:first-child .card-name {
+  font-size: 2rem;
+}
+
+.card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.4s ease;
+  font-weight: 400;
+}
+
+.card-btn:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.card-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.card-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ========== NEW / RECENTLY FINISHED CARD ========== */
+.card-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 3;
+  background: var(--gold);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(201, 168, 76, 0.35);
+}
+
+.card-placeholder {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(201, 168, 76, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 55%),
+    linear-gradient(160deg, #1a1714 0%, #0b0b0b 55%, #141210 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-placeholder svg.placeholder-art {
+  width: 72%;
+  max-width: 320px;
+  height: auto;
+  opacity: 0.85;
+  filter: drop-shadow(0 6px 30px rgba(201, 168, 76, 0.12));
+}
+
+/* ========== CONTACT SECTION ========== */
+.contact {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.3s;
+}
+
+.visible .contact-grid {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-card {
+  padding: 48px 36px;
+  background: var(--black-card);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.contact-card:hover::before {
+  opacity: 1;
+}
+
+.contact-card:hover {
+  border-color: rgba(201, 168, 76, 0.25);
+  transform: translateY(-4px);
+}
+
+.contact-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.contact-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.contact-card p {
+  font-family: var(--font-accent);
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  line-height: 1.7;
+}
+
+.contact-card a {
+  color: var(--gold-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-card a:hover {
+  color: var(--gold-bright);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 60px 40px 40px;
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  margin-top: 40px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  height: 40px;
+  opacity: 0.7;
+}
+
+.footer-text {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--white-dim);
+  opacity: 0.5;
+}
+
+.footer-text a {
+  color: var(--gold-dark);
+  text-decoration: none;
+}
+
+/* ========== PROPERTY MODAL ========== */
+.property-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(4, 4, 4, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.property-modal.open {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 92vh;
+  background: var(--black-card);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.property-modal.open .modal-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 6;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(8, 8, 8, 0.6);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-close:hover {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+
+.modal-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-gallery {
+  position: relative;
+  background: #050505;
+  min-height: 420px;
+}
+
+.modal-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.modal-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(8, 8, 8, 0.55);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-gallery-arrow:hover {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+
+.modal-gallery-arrow.prev { left: 14px; }
+.modal-gallery-arrow.next { right: 14px; }
+
+.modal-gallery-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-thumbs {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+  padding: 6px 10px;
+  background: rgba(8, 8, 8, 0.55);
+  border-radius: 30px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal-thumb {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(245, 240, 232, 0.3);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.modal-thumb.active {
+  background: var(--gold);
+  width: 22px;
+  border-radius: 4px;
+}
+
+.modal-body {
+  padding: 48px 44px 40px;
+  overflow-y: auto;
+  max-height: 92vh;
+}
+
+.modal-body::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-track { background: transparent; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
+
+.modal-city {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-city::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--white-dim);
+  margin-bottom: 22px;
+}
+
+.modal-divider {
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin-bottom: 24px;
+}
+
+.modal-description {
+  font-family: var(--font-accent);
+  font-size: 1.05rem;
+  color: var(--white-dim);
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+
+.modal-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.modal-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+.modal-features svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.modal-features li strong {
+  color: var(--gold-light);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.modal-section-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.modal-nearby {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.modal-nearby span {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  padding: 7px 14px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 30px;
+  color: var(--white-dim);
+  background: rgba(201, 168, 76, 0.04);
+}
+
+.modal-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--black);
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.4s ease;
+}
+
+.modal-cta:hover {
+  background: transparent;
+  color: var(--gold);
+}
+
+.modal-cta svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.modal-cta:hover svg {
+  transform: translateX(4px);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .modal-dialog {
+    grid-template-columns: 1fr;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  .modal-gallery {
+    min-height: 300px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .modal-body {
+    padding: 32px 26px;
+    max-height: none;
+  }
+
+  .modal-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* ========== WHATSAPP BUTTON ========== */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-btn svg {
+  width: 28px;
+  height: 28px;
+  fill: white;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeScale {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 0.4; transform: translateY(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); transform-origin: top; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .about {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .about-visual {
+    display: flex;
+    justify-content: center;
+    order: -1;
+  }
+
+  .about-wolf {
+    max-width: 280px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .property-card:first-child {
+    grid-row: span 1;
+  }
+
+  .property-card:first-child .card-image-wrapper {
+    min-height: 400px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 20px;
+  }
+
+  .carousel-track {
+    aspect-ratio: 4 / 3;
+  }
+
+  .carousel-arrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .carousel-arrow.prev { left: 10px; }
+  .carousel-arrow.next { right: 10px; }
+
+  .carousel-caption { bottom: 50px; }
+
+  .card-badge {
+    top: 14px;
+    right: 14px;
+    font-size: 0.58rem;
+    padding: 6px 11px;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(8, 8, 8, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    z-index: 200;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+  }
+
+  .nav-toggle {
+    display: block;
+    z-index: 300;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  section {
+    padding: 80px 20px;
+  }
+
+  .hero-logo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hero-cities {
+    gap: 20px;
+  }
+
+  .property-card .card-image-wrapper {
+    min-height: 280px;
+  }
+
+  .card-content {
+    padding: 24px;
+  }
+
+  .card-name {
+    font-size: 1.3rem;
+  }
+
+  .property-card:first-child .card-name {
+    font-size: 1.5rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-cities {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-city::after {
+    display: none;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="navbar">
+  <a href="#inicio">
+    <img src="logo.png" alt="LAR Hosting & Hospitality" class="nav-logo">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
+    <li><a href="#sobre" onclick="closeMenu()">Nosotros</a></li>
+    <li><a href="#catalogo" onclick="closeMenu()">Propiedades</a></li>
+    <li><a href="#contacto" onclick="closeMenu()">Contacto</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="inicio">
+  <div class="hero-deco-line left"></div>
+  <div class="hero-deco-line right"></div>
+
+  <img src="logo.png" alt="LAR Hosting & Hospitality" class="hero-logo">
+
+  <h1 class="hero-title">
+    Experiencias de <em>Lujo</em><br>en Colombia
+  </h1>
+
+  <div class="hero-divider"></div>
+
+  <p class="hero-subtitle">Hosting & Hospitality</p>
+
+  <div class="hero-cities">
+    <span class="hero-city">Cartagena</span>
+    <span class="hero-city">Armenia</span>
+    <span class="hero-city">Santa Marta</span>
+    <span class="hero-city">Pereira</span>
+    <span class="hero-city">Manizales</span>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Explorar</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ========== PHOTO CAROUSEL ========== -->
+<section class="carousel-section" aria-label="Galería de propiedades">
+  <div class="carousel" id="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide active">
+        <img src="cartagena-infinitum.png" alt="Infinitum Cartagena" loading="lazy">
+        <div class="carousel-caption">
+          <div class="carousel-caption-city">Cartagena</div>
+          <div class="carousel-caption-name">Infinitum Deluxe</div>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="cartagena-beach.png" alt="Cartagena Beach" loading="lazy">
+        <div class="carousel-caption">
+          <div class="carousel-caption-city">Cartagena</div>
+          <div class="carousel-caption-name">Cartagena Beach</div>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="armenia-corina.png" alt="Reservas de la Colina La Tebaida" loading="lazy">
+        <div class="carousel-caption">
+          <div class="carousel-caption-city">La Tebaida</div>
+          <div class="carousel-caption-name">Reservas de la Colina</div>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="santa-marta.png" alt="Santa Marta Resort" loading="lazy">
+        <div class="carousel-caption">
+          <div class="carousel-caption-city">Santa Marta</div>
+          <div class="carousel-caption-name">Santa Marta Resort</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-arrow prev" id="carouselPrev" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="carousel-arrow next" id="carouselNext" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section id="sobre" class="observe">
+  <div class="about">
+    <div class="about-content">
+      <span class="section-label">Sobre Nosotros</span>
+      <h2 class="section-title">Hecho con <em>cariño</em></h2>
+      <div class="section-divider"></div>
+      <p class="about-text">
+        Somos una familia apasionada por recibir bien. Cada apartamento lo
+        elegimos, lo arreglamos y lo cuidamos como si fuera nuestra casa,
+        para que tu estancia se sienta tranquila, cómoda y con todos los
+        detalles a la mano.
+      </p>
+      <p class="about-text">
+        Desde las playas del Caribe hasta las montañas del Eje Cafetero,
+        te esperamos con una bienvenida cálida y un espacio sencillo,
+        limpio y listo para disfrutar.
+      </p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Ciudades</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Propiedades</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Atencion</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Satisfaccion</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <img src="logo.png" alt="LAR - The Wolf" class="about-wolf">
+    </div>
+  </div>
+</section>
+
+<!-- ========== CATALOG ========== -->
+<section id="catalogo" class="observe">
+  <div class="catalog">
+    <div class="catalog-header">
+      <span class="section-label">Nuestras Propiedades</span>
+      <h2 class="section-title">Alojamientos <em>Exclusivos</em></h2>
+      <div class="section-divider" style="margin-left:auto;margin-right:auto;"></div>
+    </div>
+
+    <div class="catalog-grid">
+      <!-- Card 1: Infinitum (Large) -->
+      <div class="property-card" data-delay="0">
+        <div class="card-image-wrapper" onclick="openPropertyModal('infinitum-deluxe')" style="cursor: zoom-in;">
+          <img src="cartagena-infinitum.png" alt="Infinitum Cartagena" loading="lazy">
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-content">
+          <span class="card-city">Cartagena</span>
+          <h3 class="card-name">Infinitum Deluxe</h3>
+          <button class="card-btn" onclick="reservar('Cartagena Infinitum Deluxe')">
+            Reservar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Cartagena Beach -->
+      <div class="property-card" data-delay="150">
+        <div class="card-image-wrapper" onclick="openPropertyModal('cartagena-beach')" style="cursor: zoom-in;">
+          <img src="cartagena-beach.png" alt="Cartagena Beach" loading="lazy">
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-content">
+          <span class="card-city">Cartagena</span>
+          <h3 class="card-name">Cartagena Beach</h3>
+          <button class="card-btn" onclick="reservar('Cartagena Beach')">
+            Reservar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Reservas de la Colina -->
+      <div class="property-card" data-delay="300">
+        <div class="card-image-wrapper" onclick="openPropertyModal('reservas-colina')" style="cursor: zoom-in;">
+          <img src="armenia-corina.png" alt="Reservas de la Colina La Tebaida" loading="lazy">
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-content">
+          <span class="card-city">La Tebaida</span>
+          <h3 class="card-name">Reservas de la Colina</h3>
+          <button class="card-btn" onclick="reservar('La Tebaida Reservas de la Colina')">
+            Reservar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4: Santa Marta -->
+      <div class="property-card" data-delay="450">
+        <div class="card-image-wrapper" onclick="openPropertyModal('santa-marta')" style="cursor: zoom-in;">
+          <img src="santa-marta.png" alt="Santa Marta Resort" loading="lazy">
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-content">
+          <span class="card-city">Santa Marta</span>
+          <h3 class="card-name">Santa Marta Resort</h3>
+          <button class="card-btn" onclick="reservar('Santa Marta Resort')">
+            Reservar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 5: Manizales (Recién Terminado) -->
+      <div class="property-card" data-delay="600">
+        <div class="card-image-wrapper card-placeholder">
+          <svg class="placeholder-art" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="mtn" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#C9A84C" stop-opacity="0.55"/>
+                <stop offset="1" stop-color="#C9A84C" stop-opacity="0.08"/>
+              </linearGradient>
+              <linearGradient id="bld" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#E8D48B" stop-opacity="0.9"/>
+                <stop offset="1" stop-color="#8B7326" stop-opacity="0.35"/>
+              </linearGradient>
+            </defs>
+            <path d="M0 150 L60 95 L110 130 L165 70 L220 115 L275 85 L320 120 L320 200 L0 200 Z" fill="url(#mtn)"/>
+            <g stroke="url(#bld)" stroke-width="1.2" fill="none" opacity="0.9">
+              <rect x="130" y="95" width="24" height="55"/>
+              <rect x="160" y="75" width="28" height="75"/>
+              <rect x="194" y="105" width="20" height="45"/>
+            </g>
+            <g fill="#C9A84C" opacity="0.75">
+              <circle cx="142" cy="108" r="0.9"/><circle cx="142" cy="120" r="0.9"/><circle cx="142" cy="132" r="0.9"/>
+              <circle cx="174" cy="92" r="0.9"/><circle cx="174" cy="104" r="0.9"/><circle cx="174" cy="116" r="0.9"/><circle cx="174" cy="128" r="0.9"/>
+              <circle cx="204" cy="118" r="0.9"/><circle cx="204" cy="130" r="0.9"/>
+            </g>
+            <line x1="20" y1="168" x2="300" y2="168" stroke="#C9A84C" stroke-opacity="0.25" stroke-width="0.6"/>
+          </svg>
+          <div class="card-overlay"></div>
+        </div>
+        <span class="card-badge">Recién Terminado</span>
+        <div class="card-content">
+          <span class="card-city">Manizales</span>
+          <h3 class="card-name">Mirador del Ruiz</h3>
+          <button class="card-btn" onclick="reservar('Manizales Mirador del Ruiz')">
+            Reservar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contacto" class="observe">
+  <div class="contact">
+    <div class="contact-header">
+      <span class="section-label">Contacto</span>
+      <h2 class="section-title">Hablemos de su <em>proxima estancia</em></h2>
+      <div class="section-divider" style="margin-left:auto;margin-right:auto;"></div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <h3>WhatsApp</h3>
+        <p><a href="https://wa.me/573107130806" target="_blank">+57 310 713 0806</a></p>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Director Ejecutivo</h3>
+        <p>Luis Arevalo</p>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Presencia</h3>
+        <p>Cartagena, Armenia,<br>Santa Marta, Pereira, Manizales</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <img src="logo.png" alt="LAR" class="footer-logo">
+    <p class="footer-text">&copy; 2026 LAR Hosting & Hospitality. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ========== PROPERTY MODAL ========== -->
+<div class="property-modal" id="propertyModal" role="dialog" aria-modal="true" aria-labelledby="propertyModalTitle">
+  <div class="modal-dialog">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="modal-gallery" id="modalGallery">
+      <div class="modal-slides" id="modalSlides"></div>
+
+      <button class="modal-gallery-arrow prev" id="modalPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="modal-gallery-arrow next" id="modalNext" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+
+    <div class="modal-body">
+      <span class="modal-city" id="modalCity"></span>
+      <h3 class="modal-title" id="propertyModalTitle"></h3>
+      <p class="modal-subtitle" id="modalSubtitle"></p>
+      <div class="modal-divider"></div>
+
+      <p class="modal-description" id="modalDescription"></p>
+
+      <ul class="modal-features" id="modalFeatures"></ul>
+
+      <div class="modal-section-label">Qué hacer cerca</div>
+      <div class="modal-nearby" id="modalNearby"></div>
+
+      <button class="modal-cta" id="modalCta">
+        Reservar por WhatsApp
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== WHATSAPP ========== -->
+<a href="https://wa.me/573107130806" class="whatsapp-btn" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('navToggle').classList.toggle('active');
+}
+
+function closeMenu() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('navToggle').classList.remove('active');
+}
+
+// Intersection Observer for sections
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.observe').forEach(el => observer.observe(el));
+
+// Property cards staggered reveal
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.delay) || 0;
+      setTimeout(() => {
+        entry.target.classList.add('card-visible');
+      }, delay);
+      cardObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.property-card').forEach(el => cardObserver.observe(el));
+
+// WhatsApp booking
+function reservar(apartamento) {
+  const mensaje = `Hola, estoy interesado en reservar el apartamento ${apartamento}. ¿Podrían darme más información?`;
+  window.open(`https://wa.me/573107130806?text=${encodeURIComponent(mensaje)}`, '_blank');
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Photo carousel
+(function initCarousel() {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+  const dotsWrap = document.getElementById('carouselDots');
+  const prev = document.getElementById('carouselPrev');
+  const next = document.getElementById('carouselNext');
+  let index = 0;
+  let timer;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Ir a la imagen ' + (i + 1));
+    dot.addEventListener('click', () => go(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+
+  function go(i) {
+    slides[index].classList.remove('active');
+    dots[index].classList.remove('active');
+    index = (i + slides.length) % slides.length;
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    restart();
+  }
+
+  function start() { timer = setInterval(() => go(index + 1), 5500); }
+  function stop() { clearInterval(timer); }
+  function restart() { stop(); start(); }
+
+  prev.addEventListener('click', () => go(index - 1));
+  next.addEventListener('click', () => go(index + 1));
+
+  const carousel = document.getElementById('carousel');
+  carousel.addEventListener('mouseenter', stop);
+  carousel.addEventListener('mouseleave', start);
+
+  // Basic touch swipe
+  let startX = 0;
+  track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
+  track.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+    else start();
+  });
+
+  start();
+})();
+
+// Property modal (gallery + details)
+(function initPropertyModal() {
+  const modal = document.getElementById('propertyModal');
+  if (!modal) return;
+  const gallery = document.getElementById('modalGallery');
+  const slidesWrap = document.getElementById('modalSlides');
+  const thumbsWrap = document.getElementById('modalThumbs');
+  const closeBtn = document.getElementById('modalClose');
+  const prevBtn = document.getElementById('modalPrev');
+  const nextBtn = document.getElementById('modalNext');
+  const cityEl = document.getElementById('modalCity');
+  const titleEl = document.getElementById('propertyModalTitle');
+  const subtitleEl = document.getElementById('modalSubtitle');
+  const descEl = document.getElementById('modalDescription');
+  const featuresEl = document.getElementById('modalFeatures');
+  const nearbyEl = document.getElementById('modalNearby');
+  const ctaBtn = document.getElementById('modalCta');
+
+  const PIN_ICON = '<svg viewBox="0 0 24 24"><path d="M12 22s8-8 8-14a8 8 0 10-16 0c0 6 8 14 8 14z"/><circle cx="12" cy="8" r="3"/></svg>';
+  const WAVE_ICON = '<svg viewBox="0 0 24 24"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M2 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>';
+  const PEAK_ICON = '<svg viewBox="0 0 24 24"><path d="M3 20l6-14 5 10 3-6 4 10z"/></svg>';
+  const ROAD_ICON = '<svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+  const PARK_ICON = '<svg viewBox="0 0 24 24"><path d="M4 18l5-8 4 6 3-4 4 6"/><path d="M2 20h20"/></svg>';
+  const SUN_ICON = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+
+  const PROPERTIES = {
+    'reservas-colina': {
+      city: 'La Tebaida, Quindío',
+      title: 'Reservas de la Colina',
+      subtitle: 'Ubicación privilegiada en el corazón del Eje Cafetero',
+      description: 'Reservas de la Colina es un lugar acogedor y bien equipado, ideal para familias y viajeros que quieren recorrer el Quindío con comodidad. Disfrute de una estancia tranquila en La Tebaida, a pocos minutos del aeropuerto y con acceso inmediato a las principales vías, perfecto para explorar los paisajes, parques temáticos y fincas cafeteras de la región.',
+      images: [
+        { src: 'corales-1.jpeg', alt: 'Reservas de la Colina - vista 1' },
+        { src: 'corales-2.jpeg', alt: 'Reservas de la Colina - vista 2' },
+        { src: 'corales-3.jpeg', alt: 'Reservas de la Colina - vista 3' },
+        { src: 'corales-4.jpeg', alt: 'Reservas de la Colina - vista 4' },
+        { src: 'corales-5.jpeg', alt: 'Reservas de la Colina - vista 5' }
+      ],
+      features: [
+        { icon: PIN_ICON, strong: 'Cerca', text: 'al Aeropuerto Internacional El Edén' },
+        { icon: PEAK_ICON, strong: 'A 15 minutos', text: 'de Armenia' },
+        { icon: ROAD_ICON, strong: 'Fácil acceso', text: 'a la vía principal del Valle y Quindío' },
+        { icon: PARK_ICON, strong: 'Cerca', text: 'de los Parques Temáticos del Quindío' }
+      ],
+      nearby: ['Parque del Café', 'PANACA', 'Valle del Cocora', 'Salento', 'Filandia', 'Fincas cafeteras', 'La Tebaida', 'Gastronomía paisa'],
+      cta: 'La Tebaida Reservas de la Colina'
+    },
+    'infinitum-deluxe': {
+      city: 'Cartagena, Bocagrande',
+      title: 'Infinitum Deluxe',
+      subtitle: 'Diseño contemporáneo en Bocagrande, cerca de la vida nocturna',
+      description: 'Infinitum Deluxe ofrece una experiencia elegante y confortable en Bocagrande para quienes quieren disfrutar Cartagena con acceso rápido a restaurantes, bares, playas y planes nocturnos. Sus espacios amplios, iluminación natural y ubicación estratégica lo convierten en una excelente opción para viajes en pareja, grupos o estadías enfocadas en vivir la energía de la ciudad.',
+      images: [
+        { src: 'cartagena-infinitum.png', alt: 'Infinitum Deluxe - vista principal' }
+      ],
+      features: [
+        { icon: WAVE_ICON, strong: 'Bocagrande', text: 'cerca de playas, restaurantes y zonas comerciales' },
+        { icon: SUN_ICON, strong: 'Ambiente moderno', text: 'con espacios pensados para comodidad y planes urbanos' },
+        { icon: PIN_ICON, strong: 'Ubicación estratégica', text: 'para moverse fácilmente por Cartagena' },
+        { icon: ROAD_ICON, strong: 'Vida nocturna', text: 'con bares, restaurantes y entretenimiento a pocos minutos' }
+      ],
+      nearby: ['Bocagrande', 'Castillogrande', 'Centro Histórico', 'Getsemaní', 'Bares y restaurantes', 'Playa de Bocagrande', 'Muelle de la Bodeguita', 'Castillo de San Felipe'],
+      cta: 'Cartagena Infinitum Deluxe'
+    },
+    'cartagena-beach': {
+      city: 'Cartagena, Bolívar',
+      title: 'Cartagena Beach',
+      subtitle: 'A pasos del mar, en la exclusiva zona de Los Morros',
+      description: 'Cartagena Beach es un apartamento moderno y luminoso ubicado en la privilegiada zona de Los Morros, al norte de la ciudad. Con acceso directo a la playa, piscina y amplias zonas sociales, es el refugio ideal para descansar frente al Caribe y, al mismo tiempo, estar a pocos minutos del Centro Histórico, la Ciudad Amurallada y las mejores experiencias de Cartagena.',
+      images: [
+        { src: 'cartagena-beach-1.avif', alt: 'Cartagena Beach - vista 1' },
+        { src: 'cartagena-beach-2.avif', alt: 'Cartagena Beach - vista 2' },
+        { src: 'cartagena-beach-3.jpg', alt: 'Cartagena Beach - vista 3' },
+        { src: 'cartagena-beach-4.avif', alt: 'Cartagena Beach - vista 4' }
+      ],
+      features: [
+        { icon: WAVE_ICON, strong: 'Frente al mar', text: 'con acceso directo a la playa en Los Morros' },
+        { icon: SUN_ICON, strong: 'Piscina y zonas sociales', text: 'para disfrutar en familia o en pareja' },
+        { icon: PIN_ICON, strong: 'A 15 minutos', text: 'del Aeropuerto Rafael Núñez' },
+        { icon: ROAD_ICON, strong: 'A 20 minutos', text: 'del Centro Histórico y la Ciudad Amurallada' }
+      ],
+      nearby: ['Playa La Boquilla', 'Serena del Mar', 'Ciudad Amurallada', 'Getsemaní', 'Castillo de San Felipe', 'Islas del Rosario', 'Playa Blanca', 'Gastronomía caribeña'],
+      cta: 'Cartagena Beach'
+    },
+    'santa-marta': {
+      city: 'Santa Marta, Magdalena',
+      title: 'Santa Marta Resort',
+      subtitle: 'Ubicación central para disfrutar la perla del Caribe',
+      description: 'Santa Marta Resort es un apartamento cómodo y bien ubicado en una zona central de la ciudad, ideal para quienes buscan estar cerca de todo: playas, centro histórico, restaurantes y vida nocturna. Desde aquí podrá recorrer con facilidad las joyas de Santa Marta, como el Parque Tayrona, Minca, Playa Blanca y el histórico Rodadero, combinando descanso, naturaleza y cultura caribeña en una sola experiencia.',
+      images: [
+        { src: 'santa-marta-1.jpeg', alt: 'Santa Marta Resort - vista 1' },
+        { src: 'santa-marta-2.jpeg', alt: 'Santa Marta Resort - vista 2' },
+        { src: 'santa-marta-3.jpeg', alt: 'Santa Marta Resort - vista 3' },
+        { src: 'santa-marta-4.jpeg', alt: 'Santa Marta Resort - vista 4' },
+        { src: 'santa-marta-5.jpeg', alt: 'Santa Marta Resort - vista 5' },
+        { src: 'santa-marta-6.jpeg', alt: 'Santa Marta Resort - vista 6' },
+        { src: 'santa-marta-7.jpeg', alt: 'Santa Marta Resort - vista 7' },
+        { src: 'santa-marta-8.jpeg', alt: 'Santa Marta Resort - vista 8' },
+        { src: 'santa-marta-9.jpeg', alt: 'Santa Marta Resort - vista 9' }
+      ],
+      features: [
+        { icon: PIN_ICON, strong: 'Ubicación central', text: 'a pocos minutos de playas, centro y zona gastronómica' },
+        { icon: WAVE_ICON, strong: 'Cerca del Rodadero', text: 'y de las mejores playas del Caribe colombiano' },
+        { icon: PEAK_ICON, strong: 'Puerta de entrada', text: 'al Parque Tayrona y a la Sierra Nevada' },
+        { icon: SUN_ICON, strong: 'Clima cálido todo el año', text: 'ideal para vacaciones en pareja o en familia' }
+      ],
+      nearby: ['Parque Tayrona', 'Playa Blanca', 'El Rodadero', 'Taganga', 'Minca', 'Bahía Concha', 'Quinta de San Pedro Alejandrino', 'Centro Histórico'],
+      cta: 'Santa Marta Resort'
+    }
+  };
+
+  let slides = [];
+  let thumbs = [];
+  let current = 0;
+
+  function renderProperty(data) {
+    cityEl.textContent = data.city;
+    titleEl.textContent = data.title;
+    subtitleEl.textContent = data.subtitle;
+    descEl.textContent = data.description;
+
+    slidesWrap.innerHTML = data.images.map((img, i) =>
+      `<div class="modal-slide${i === 0 ? ' active' : ''}"><img src="${img.src}" alt="${img.alt}" loading="lazy"></div>`
+    ).join('');
+    slides = Array.from(slidesWrap.querySelectorAll('.modal-slide'));
+
+    thumbsWrap.innerHTML = data.images.map((_, i) =>
+      `<button class="modal-thumb${i === 0 ? ' active' : ''}" aria-label="Ver imagen ${i + 1}"></button>`
+    ).join('');
+    thumbs = Array.from(thumbsWrap.querySelectorAll('.modal-thumb'));
+    thumbs.forEach((t, i) => t.addEventListener('click', () => goTo(i)));
+
+    featuresEl.innerHTML = data.features.map(f =>
+      `<li>${f.icon}<span><strong>${f.strong}</strong>${f.text}</span></li>`
+    ).join('');
+
+    nearbyEl.innerHTML = data.nearby.map(n => `<span>${n}</span>`).join('');
+
+    ctaBtn.onclick = () => reservar(data.cta);
+
+    current = 0;
+  }
+
+  function goTo(i) {
+    if (!slides.length) return;
+    slides[current].classList.remove('active');
+    thumbs[current].classList.remove('active');
+    current = (i + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    thumbs[current].classList.add('active');
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  function open() {
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+
+  function close() {
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  }
+
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  let startX = 0;
+  gallery.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  gallery.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  });
+
+  window.openPropertyModal = function(id) {
+    const data = PROPERTIES[id];
+    if (!data) return;
+    renderProperty(data);
+    open();
+  };
+})();
+</script>
+
+</body>
+</html>
